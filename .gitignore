@@ -1,0 +1,13 @@
+db_creds.yaml
+postgre_db_local.yaml
+postgre_db.yaml
+card_details.pdf
+TestTask.py
+Steps.txt
+S3Obj.csv
+WeightTest.ipynb
+TestTask.py
+__pycache__/
+SQL/.vscode
+SQL/salesdata.session.sql
+SQL/test_query.sql

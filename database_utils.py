@@ -13,7 +13,6 @@ class DatabaseConnector:
     def read_db_creds(yaml_file):    
         '''
         This method will read the credentials yaml file and return a dictionary of the credentials.
-        Need to pip install PyYAML and import yaml to do this
         '''        
         with open(yaml_file, 'r') as stream:
             data_loaded = yaml.safe_load(stream)
@@ -22,8 +21,8 @@ class DatabaseConnector:
     @staticmethod
     def init_db_engine(yaml_file):        
         '''
-        Now create a method init_db_engine which will read the credentials from the return of read_db_creds 
-        and initialise and return an sqlalchemy database engine.
+        create a method which will read the credentials and 
+        initialise and return an sqlalchemy database engine.
         '''
         dict_cred = __class__.read_db_creds(yaml_file) 
         DATABASE_TYPE = 'postgresql'
@@ -43,14 +42,11 @@ class DatabaseConnector:
 
 class RDSConnector(DatabaseConnector):
     '''
-    The method below is only applicable to the remote RDS database, 
-    so this needs to be defined in an inherited class.
+    A subclass for the remote RDS database connection
     '''
     def list_db_tables(self):        
         '''
-        Using the engine from init_db_engine create a method list_db_tables to list all the tables 
-        in the database so you know which tables you can extract data from.
-        Develop a method inside your DataExtractor class to read the data from the RDS database.
+        list all the tables in the database that can be extracted.
         '''
         inspector = inspect(self.engine)
         return inspector.get_table_names()
@@ -62,6 +58,6 @@ class LocalConnector(DatabaseConnector):
     '''
     def upload_to_db(self, df, table_name):
         '''
-        This method will take in a Pandas DataFrame and table name to upload to as an argument.
+        upload a Pandas DataFrame to a specific table in the local DB. 
         '''
         df.to_sql(table_name, self.engine, if_exists='replace')

@@ -8,23 +8,18 @@ import requests
 
 class DataExtractor:
     '''
-    This class will work as a utility class, in it you will be creating methods that help extract data 
-    from different data sources. The methods contained will be fit to extract data from a particular 
-    data source, these sources will include CSV files, an API and an S3 bucket.
+    This class will work as a utility class, where the methods help extract data 
+    from different data sources. The methods contained will be fit to extract data 
+    from a particular data source, these sources will include CSV files, an API and an S3 bucket.
     '''
     def __init__(self):
         pass
 
     def extract_from_s3(self, uri):
         '''
-        The information for each product the company currently sells is stored in CSV format in an S3 bucket 
-        on AWS.
-        Step 1:
-        Create a method in DataExtractor called extract_from_s3 which uses the boto3 package to download 
-        and extract the information returning a pandas DataFrame.
-
-        The S3 address for the products data is the following s3://data-handling-public/products.csv 
-        the method will take this address in as an argument and return the pandas DataFrame.
+        extract product information (stored in an S3 bucket) from AWS.
+        Args:
+            uri (URI): the S3 address
         '''
         s3 = boto3.client('s3')
         #URI starts with 's3://', so we need to remove this first 5 characters.
@@ -36,12 +31,9 @@ class DataExtractor:
 
     def read_rds_table(self, db_conn_obj,table_name):
         """
-        Develop a method called read_rds_table in your DataExtractor class which will extract the database table 
-        to a pandas DataFrame.
-        It will take in an instance of your DatabaseConnector class and the table name as an argument 
-        and return a pandas DataFrame.
-        Use your list_db_tables method to get the name of the table containing user data.
-        Use the read_rds_table method to extract the table containing user data and return a pandas DataFrame.
+        Args:
+            db_conn_obj (DatabaseConnector): connector to the AWS RDS database  
+            table_name (str): table name keyword
         """
         list_tables = db_conn_obj.list_db_tables()
         # find all table names which contain the string table_name  
@@ -52,17 +44,17 @@ class DataExtractor:
         return df
 
     def retrieve_pdf_data(self, pdf_path):
-        '''This method takes in a link as an argument and returns a pandas DataFrame.
-        Using the tabula-py Python package, extract all pages from the pdf document 
-        at following link. Then return a DataFrame of the extracted data.
+        ''' extract all pages from pdf document. 
+        Args:
+            pdf_path (string): path to the pdf document
         '''
         dfs = tabula.read_pdf(pdf_path, pages='all')              
         return pd.concat(dfs)
 
     def list_number_of_stores(self, url, headers):
         '''
-        This method returns the number of stores to extract. It should take in the number of stores endpoint 
-        and header dictionary as an argument.
+        This method returns the number of stores to extract. 
+        It takes in the endpoint and header dictionary as an argument.
         '''
         # GET request with custom header
         response = requests.get(url,headers=headers)
@@ -70,7 +62,7 @@ class DataExtractor:
 
     def retrieve_stores_data(self, url, headers, num_stores):
         '''
-        This method will take the retrieve a store endpoint as an argument and extracts 
+        This method takes the retrieve a store endpoint as an argument and extracts 
         all the stores from the API saving them in a pandas DataFrame.
         '''
         listdict = []

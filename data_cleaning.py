@@ -47,8 +47,8 @@ def clean_weight(s):
 class DataCleaning:
     '''
     This class contains methods to clean data from each of the data sources.
-    It will need to clean the user data, look out for NULL values, errors with dates, incorrectly typed values 
-    and rows filled with the wrong information.
+    It will need to clean the user data, look out for NULL values, errors with dates, 
+    incorrectly typed values and rows filled with the wrong information.
     '''
 
     def __init__(self):
@@ -57,8 +57,8 @@ class DataCleaning:
     def clean_user_data(self, df):
         '''
         This method will perform the cleaning of the user data.
-        It will clean the user data, look out for NULL values, errors with dates, 
-        incorrectly typed values and rows filled with the wrong information.
+        Args:
+            df (pandas dataframe): the dataframe which needs cleaning 
         '''
         df['join_date'] = df.join_date.apply(parse_date_retain)
         df['join_date'] = pd.to_datetime(df.join_date, infer_datetime_format=True, errors='coerce')
@@ -72,7 +72,9 @@ class DataCleaning:
 
     def clean_card_data(self, df):
         '''
-        This method cleans the data to remove any erroneous values, NULL values or errors with formatting.
+        This method will perform the cleaning of the card data.
+        Args:
+            df (pandas dataframe): the dataframe which needs cleaning 
         '''
         #The card number needs a number of cleaning steps
         #Several cells have 'NULL' string value 
@@ -96,8 +98,10 @@ class DataCleaning:
         return df
 
     def clean_store_data(self, df):
-        '''
-        This method cleans the data retrieved from the API and returns a pandas DataFrame.
+        '''   
+        This method will perform the cleaning of the store data retrieved from the API.
+        Args:
+            df (pandas dataframe): the dataframe which needs cleaning 
         '''
         df.longitude = pd.to_numeric(df.longitude, errors='coerce')
         df.latitude = pd.to_numeric(df.latitude, errors='coerce')
@@ -122,9 +126,9 @@ class DataCleaning:
     def convert_product_weights(self, df):
         '''
         This method will take the products DataFrame as an argument and return the products DataFrame.
-        If you check the weight column in the DataFrame the weights all have different units.
-        Convert them all to a decimal value representing their weight in kg. Use a 1:1 ratio of ml to g as a rough estimate for the rows containing ml.
-        Develop the method to clean up the weight column and remove all excess characters then represent the weights as a float.
+        Convert them all to a decimal value representing their weight in kg. 
+        Args:
+            df (pandas dataframe): the dataframe whose weight needs consistency 
         '''
         #removing large value represented by NaN 
         df.dropna(inplace=True) 
@@ -141,7 +145,9 @@ class DataCleaning:
     
     def clean_products_data(self, df):
         '''
-        Tthis method will clean the DataFrame of any additional erroneous values.
+        This method will perform the cleaning of the products data.
+        Args:
+            df (pandas dataframe): the dataframe which needs cleaning 
         '''
         #remove all rows which have NaN after being filtered by clean_weight                
         df.dropna(inplace=True) 
@@ -149,24 +155,19 @@ class DataCleaning:
 
     def clean_orders_data(self, df):
         '''
-        Task 7 Step 3:
-        This method will clean the orders table data.
-        You should remove the columns, first_name, last_name and 1 to have the table in the correct form 
-        before uploading to the database.
-        You will see that the orders data contains column headers which are the same in other tables.
-        This table will act as the source of truth for your sales data and will be at the center of your star based database schema.
+        This method will perform the cleaning of the orders data.
+        Args:
+            df (pandas dataframe): the dataframe which needs cleaning 
         '''
-        
+
         df.drop(['first_name', 'last_name', '1', 'level_0'], axis=1, inplace=True)
         return df
 
     def clean_date_times_data(self, df):
         '''
-        The final source of data is a JSON file containing the details of when each sale happened, 
-        as well as related attributes.
-        The file is currently stored on S3 and can be found at the following link https://data-handling-public.s3.eu-west-1.amazonaws.com/date_details.json.
-        Extract the file and perform any necessary cleaning, then upload the data to the database naming 
-        the table dim_date_times.
+        This method will perform the cleaning of the date data.
+        Args:
+            df (pandas dataframe): the dataframe which needs cleaning 
         '''
         df['day']=df['day'].apply(lambda x: x if len(x)<=2 else np.nan)
         df['month']=df['month'].apply(lambda x: x if len(x)<=2 else np.nan)

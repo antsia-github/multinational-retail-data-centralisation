@@ -44,17 +44,14 @@ def clean_weight(s):
         weight = np.nan # float('NaN')
     return weight   
 
+@staticclass
 class DataCleaning:
     '''
     This class contains methods to clean data from each of the data sources.
     It will need to clean the user data, look out for NULL values, errors with dates, 
     incorrectly typed values and rows filled with the wrong information.
     '''
-
-    def __init__(self):
-        pass
-
-    def clean_user_data(self, df):
+    def clean_user_data(df):
         '''
         This method will perform the cleaning of the user data.
         Args:
@@ -70,7 +67,7 @@ class DataCleaning:
 
         return df
 
-    def clean_card_data(self, df):
+    def clean_card_data(df):
         '''
         This method will perform the cleaning of the card data.
         Args:
@@ -97,7 +94,7 @@ class DataCleaning:
         df.dropna(inplace=True)
         return df
 
-    def clean_store_data(self, df):
+    def clean_store_data(df):
         '''   
         This method will perform the cleaning of the store data retrieved from the API.
         Args:
@@ -123,7 +120,7 @@ class DataCleaning:
 
         return df
     
-    def convert_product_weights(self, df):
+    def convert_product_weights(df):
         '''
         This method will take the products DataFrame as an argument and return the products DataFrame.
         Convert them all to a decimal value representing their weight in kg. 
@@ -143,7 +140,7 @@ class DataCleaning:
 
         return df
     
-    def clean_products_data(self, df):
+    def clean_products_data(df):
         '''
         This method will perform the cleaning of the products data.
         Args:
@@ -153,7 +150,7 @@ class DataCleaning:
         df.dropna(inplace=True) 
         return df
 
-    def clean_orders_data(self, df):
+    def clean_orders_data(df):
         '''
         This method will perform the cleaning of the orders data.
         Args:
@@ -163,7 +160,7 @@ class DataCleaning:
         df.drop(['first_name', 'last_name', '1', 'level_0'], axis=1, inplace=True)
         return df
 
-    def clean_date_times_data(self, df):
+    def clean_date_times_data(df):
         '''
         This method will perform the cleaning of the date data.
         Args:

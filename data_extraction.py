@@ -6,16 +6,14 @@ import pandas as pd
 import tabula
 import requests
 
+@staticclass
 class DataExtractor:
     '''
     This class will work as a utility class, where the methods help extract data 
     from different data sources. The methods contained will be fit to extract data 
     from a particular data source, these sources will include CSV files, an API and an S3 bucket.
     '''
-    def __init__(self):
-        pass
-
-    def extract_from_s3(self, uri):
+    def extract_from_s3(uri):
         '''
         extract product information (stored in an S3 bucket) from AWS.
         Args:
@@ -29,7 +27,7 @@ class DataExtractor:
         df = pd.read_csv('./S3Obj.csv')
         return df
 
-    def read_rds_table(self, db_conn_obj,table_name):
+    def read_rds_table(db_conn_obj,table_name):
         """
         Args:
             db_conn_obj (DatabaseConnector): connector to the AWS RDS database  
@@ -43,7 +41,7 @@ class DataExtractor:
         df = pd.read_sql_table(correct_name, db_conn_obj.engine)        
         return df
 
-    def retrieve_pdf_data(self, pdf_path):
+    def retrieve_pdf_data(pdf_path):
         ''' extract all pages from pdf document. 
         Args:
             pdf_path (string): path to the pdf document
@@ -51,7 +49,7 @@ class DataExtractor:
         dfs = tabula.read_pdf(pdf_path, pages='all')              
         return pd.concat(dfs)
 
-    def list_number_of_stores(self, url, headers):
+    def list_number_of_stores(url, headers):
         '''
         This method returns the number of stores to extract. 
         It takes in the endpoint and header dictionary as an argument.
@@ -60,7 +58,7 @@ class DataExtractor:
         response = requests.get(url,headers=headers)
         return response
 
-    def retrieve_stores_data(self, url, headers, num_stores):
+    def retrieve_stores_data(url, headers, num_stores):
         '''
         This method takes the retrieve a store endpoint as an argument and extracts 
         all the stores from the API saving them in a pandas DataFrame.

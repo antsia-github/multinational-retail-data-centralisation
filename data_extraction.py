@@ -6,13 +6,13 @@ import pandas as pd
 import tabula
 import requests
 
-@staticclass
 class DataExtractor:
     '''
     This class will work as a utility class, where the methods help extract data 
     from different data sources. The methods contained will be fit to extract data 
     from a particular data source, these sources will include CSV files, an API and an S3 bucket.
     '''
+    @staticmethod
     def extract_from_s3(uri):
         '''
         extract product information (stored in an S3 bucket) from AWS.
@@ -27,6 +27,7 @@ class DataExtractor:
         df = pd.read_csv('./S3Obj.csv')
         return df
 
+    @staticmethod
     def read_rds_table(db_conn_obj,table_name):
         """
         Args:
@@ -41,6 +42,7 @@ class DataExtractor:
         df = pd.read_sql_table(correct_name, db_conn_obj.engine)        
         return df
 
+    @staticmethod
     def retrieve_pdf_data(pdf_path):
         ''' extract all pages from pdf document. 
         Args:
@@ -49,6 +51,7 @@ class DataExtractor:
         dfs = tabula.read_pdf(pdf_path, pages='all')              
         return pd.concat(dfs)
 
+    @staticmethod
     def list_number_of_stores(url, headers):
         '''
         This method returns the number of stores to extract. 
@@ -58,6 +61,7 @@ class DataExtractor:
         response = requests.get(url,headers=headers)
         return response
 
+    @staticmethod
     def retrieve_stores_data(url, headers, num_stores):
         '''
         This method takes the retrieve a store endpoint as an argument and extracts 

@@ -1,4 +1,4 @@
----Task 4---
+------Task 4: Total sales from online/web and offline---
 SELECT COUNT(orders_table.product_quantity) AS number_of_sales, SUM(orders_table.product_quantity) AS product_quantity_count, Loc_Subq.location AS location
   FROM orders_table 
   JOIN

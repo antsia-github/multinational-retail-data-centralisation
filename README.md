@@ -15,21 +15,15 @@ It is not very clear why the DataExtraction and DataCleaning classes are necessa
 ## Milestone-1
 Set up the environment
 
-## Milestone-2
-Create the variables for the game
-
-## Milestone-3
-Check if the guessed character is in the word
-
-## Milestone-4
-Create the Hangman game class
 
 ## Usage Instructions
 The steps to run this project are split into 3 milestones (milestone-2, milestone-3 and milestone-4). 
 1. The first one (milestone-2) is running a python implementation which will extract the required data from different sources, process and clean them before uploading them to a local Postgre DB.
 This is done by running milestone2.py script in the terminal :
 
+```python
 python milestone2.py  
+```
 
 2. The second step (milestone-3) is needed to make the uploaded data (from milestone-2) in the local Postgre DB fit as a relational database system. All the procedures in this milestone are bundled in a single SQL script (SQL/milestone3.sql).
 These can be performed by running the script using e.g. pgadmin4 or other supported IDE such as VS Code.

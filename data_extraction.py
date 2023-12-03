@@ -17,7 +17,9 @@ class DataExtractor:
         '''
         extract product information (stored in an S3 bucket) from AWS.
         Args:
-            uri (URI): the S3 address
+            uri (str): the S3 address
+        Returns:
+        pandas DataFrame: The extracted products data.            
         '''
         s3 = boto3.client('s3')
         #URI starts with 's3://', so we need to remove this first 5 characters.

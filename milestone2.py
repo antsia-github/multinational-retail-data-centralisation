@@ -15,7 +15,7 @@ dcl = DataCleaning()
 #-------Task 3, Milestone 2
 print('-----Task 3------')
 # extract the user data from RDS
-# calling this will call dbc.list_db_tables
+# calling this will invoke the method dbc_rds.list_db_tables
 df_user = dataxtr.read_rds_table(dbc_rds,'user') 
 df_user = dcl.clean_user_data(df_user)
 

@@ -25,9 +25,3 @@ These can be performed by running the script using e.g. pgadmin4 or other suppor
 3. The final step (milestone-4) is getting some meaningful aggregate information from the SQL RDB (the outcome of milestone-3).
 This consists of 9 tasks, each with its own SQL script (milestone4-task1.sql through to milestone4-task9.sql in [SQL](https://github.com/antsia-github/multinational-retail-data-centralisation/tree/main/SQL) directory) which can be executed using e.g. pgadmin4 or other supported IDE such as VS Code.
 
-## File structure
-TBD
-
-## License
-TBD
-
